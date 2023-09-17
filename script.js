@@ -1,21 +1,42 @@
-function calculateMinCost(){
-	let ropelengthsStr=document.getElementById('rope-lengths').value;
-	let ropelengthsArr=ropelengthsStr.split(",").map(Number);
-	let n=ropelengthsArr.length;
-
-let pq=[];
-	for(let i=0;i<n;i++){
-		pq.push(ropelengthsArr[i]);
-	}
-pq.sort((a,b)=>a-b);
-
-let res=0;
-while(pq.length>1){
-	let first=pq.shift();
-	let second= pq.shift();
-	res+=first+second;
-	pq.push(first+second);
-	pq.sort((a,b)=>a-b);
+function compare(a, b) {
+  if (a < b) {
+      return -1;
+  } else if (a > b) {
+      return 1;
+  } else {
+      return 0;
+  }
 }
-	document.getElementById('result').textContent=res;
+ 
+ 
+ 
+function calculateMinCost() {
+  //your code here
+  let str=document.getElementById('rope-lengths').value.split(",");
+  let arr=str.map((str)=>parseInt(str));
+  // console.log(arr);
+  
+let total=0;
+arr=arr.sort(compare);
+// console.log("arr ",arr);
+while(arr.length>=2){
+  let sum=arr[0]+arr[1];
+  // console.log(sum);
+  let rem=[];
+  rem.push(sum);
+  for(let k=2;k<arr.length;k++){
+    rem.push(arr[k]);
+  }
+  rem=rem.sort(compare);
+  // console.log("rem ",rem);
+  arr=[...rem];
+  // console.log("arr ",arr);
+  total=total+sum;
+  // console.log("total "+total+"----------------------");
 }
+console.log(total);
+ 
+ 
+let result=document.getElementById('result');
+result.innerHTML=total;
+}  
